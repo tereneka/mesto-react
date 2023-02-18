@@ -1,17 +1,30 @@
 import React from "react";
 
-export default function Card({ card }) {
+export default function Card({
+  card,
+  userId,
+  onCardClick,
+}) {
+  function handleCardClick() {
+    onCardClick(card);
+  }
+
   return (
-    <div className="elements__item">
+    <div
+      className="elements__item"
+      onClick={handleCardClick}>
       <img
         className="elements__photo"
         src={card.link}
         alt={card.name}
       />
-      <button
-        className="elements__trash"
-        type="button"
-        aria-label="удалить"></button>
+      {card.owner._id === userId && (
+        <button
+          className="elements__trash"
+          type="button"
+          aria-label="удалить"></button>
+      )}
+
       <div className="elements__title-flex-box">
         <h3 className="elements__title">
           {card.name}

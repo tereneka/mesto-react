@@ -10,8 +10,10 @@ export default function Main({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
+  onCardClick,
 }) {
   const [userName, setUserName] = useState();
+  const [userId, setUserId] = useState();
   const [userDescription, setUserDescription] =
     useState();
   const [userAvatar, setUserAvatar] = useState();
@@ -22,6 +24,7 @@ export default function Main({
       .getUserInfo()
       .then((profileData) => {
         setUserName(profileData.name);
+        setUserId(profileData._id);
         setUserDescription(profileData.about);
         setUserAvatar(profileData.avatar);
       })
@@ -74,7 +77,12 @@ export default function Main({
 
       <section className="elements">
         {cards.map((card) => (
-          <Card card={card} key={card._id} />
+          <Card
+            card={card}
+            userId={userId}
+            onCardClick={onCardClick}
+            key={card._id}
+          />
         ))}
       </section>
     </main>
