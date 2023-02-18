@@ -1,4 +1,9 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+import { api } from "../utils/api";
+import Card from "./Card";
 import PopupWithForm from "./PopupWithForm";
 
 export default function Main({
@@ -6,6 +11,27 @@ export default function Main({
   onEditProfile,
   onAddPlace,
 }) {
+  const [userName, setUserName] = useState();
+  const [userDescription, setUserDescription] =
+    useState();
+  const [userAvatar, setUserAvatar] = useState();
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((profileData) => {
+        setUserName(profileData.name);
+        setUserDescription(profileData.about);
+        setUserAvatar(profileData.avatar);
+      })
+      .catch((err) => console.log(err));
+
+    api.getCards().then((cardsData) => {
+      setCards([...cardsData]);
+    });
+  }, []);
+
   return (
     <main>
       <section className="profile">
@@ -17,21 +43,25 @@ export default function Main({
               onClick={onEditAvatar}></button>
             <img
               className="profile__avatar"
-              src="#"
+              src={userAvatar}
               alt="аватарка"
             />
           </div>
 
           <div>
             <div className="profile__name-flex-box">
-              <h1 className="profile__name"></h1>
+              <h1 className="profile__name">
+                {userName}
+              </h1>
               <button
                 className="profile__edit-btn"
                 type="button"
                 aria-label="редактирование профиля"
                 onClick={onEditProfile}></button>
             </div>
-            <h2 className="profile__about"></h2>
+            <h2 className="profile__about">
+              {userDescription}
+            </h2>
           </div>
         </div>
 
@@ -42,7 +72,11 @@ export default function Main({
           onClick={onAddPlace}></button>
       </section>
 
-      <section className="elements"></section>
+      <section className="elements">
+        {cards.map((card) => (
+          <Card card={card} key={card._id} />
+        ))}
+      </section>
     </main>
   );
 }
