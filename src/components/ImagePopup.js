@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export default function PopupWithImage({
+export default function ImagePopup({
   card,
   onClose,
 }) {

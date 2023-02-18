@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage";
 
 function App() {
   const [
@@ -152,7 +152,7 @@ function App() {
         onClose={closeAllPopups}
       />
 
-      <PopupWithImage
+      <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
       />
