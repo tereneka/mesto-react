@@ -4,7 +4,7 @@ export default function ImagePopup({
   card,
   onClose,
 }) {
-  function handleClose(e) {
+  function closePopup(e) {
     if (
       e.target === e.currentTarget ||
       e.target.classList.contains(
@@ -15,31 +15,30 @@ export default function ImagePopup({
     }
   }
 
-  useEffect(() => {
-    function handleEscClose(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
+  function closePopupByEsc(e) {
+    if (e.key === "Escape") {
+      onClose();
     }
-    document.addEventListener(
-      "keydown",
-      handleEscClose
-    );
+  }
 
-    return () => {
-      document.removeEventListener(
-        "keydown",
-        handleEscClose
-      );
-    };
-  });
+  useEffect(() => {
+    card
+      ? document.addEventListener(
+          "keydown",
+          closePopupByEsc
+        )
+      : document.removeEventListener(
+          "keydown",
+          closePopupByEsc
+        );
+  }, [card]);
 
   return (
     <div
       className={`popup popup_name_fullscreen-photo ${
         card ? "popup_opened" : ""
       }`}
-      onClick={handleClose}>
+      onClick={closePopup}>
       <div className="popup__container">
         <button
           className="popup__close-btn"

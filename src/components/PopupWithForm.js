@@ -7,7 +7,7 @@ export default function PopupWithForm({
   isOpen,
   onClose,
 }) {
-  function handleClose(e) {
+  function closePopup(e) {
     if (
       e.target === e.currentTarget ||
       e.target.classList.contains(
@@ -18,31 +18,30 @@ export default function PopupWithForm({
     }
   }
 
-  useEffect(() => {
-    function handleEscClose(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
+  function closePopupByEsc(e) {
+    if (e.key === "Escape") {
+      onClose();
     }
-    document.addEventListener(
-      "keydown",
-      handleEscClose
-    );
+  }
 
-    return () => {
-      document.removeEventListener(
-        "keydown",
-        handleEscClose
-      );
-    };
-  });
+  useEffect(() => {
+    isOpen
+      ? document.addEventListener(
+          "keydown",
+          closePopupByEsc
+        )
+      : document.removeEventListener(
+          "keydown",
+          closePopupByEsc
+        );
+  }, [isOpen]);
 
   return (
     <div
       className={`popup popup_name_${name} ${
         isOpen ? "popup_opened" : ""
       }`}
-      onClick={handleClose}>
+      onClick={closePopup}>
       <div className="popup__container popup__container_for_form">
         <button
           className="popup__close-btn"
@@ -57,6 +56,11 @@ export default function PopupWithForm({
             name={name}
             noValidate>
             {children}
+            <button
+              className="popup__submit-btn"
+              type="submit">
+              Сохранить
+            </button>
           </form>
         </div>
       </div>

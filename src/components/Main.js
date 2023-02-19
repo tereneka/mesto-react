@@ -4,7 +4,6 @@ import React, {
 } from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
-import PopupWithForm from "./PopupWithForm";
 
 export default function Main({
   onEditAvatar,
@@ -12,11 +11,12 @@ export default function Main({
   onAddPlace,
   onCardClick,
 }) {
-  const [userName, setUserName] = useState();
-  const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [userDescription, setUserDescription] =
-    useState();
-  const [userAvatar, setUserAvatar] = useState();
+    useState("");
+  const [userAvatar, setUserAvatar] =
+    useState("");
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
