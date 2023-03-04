@@ -1,7 +1,10 @@
 import React, {
+  useContext,
   useEffect,
   useState,
 } from "react";
+import { CardContext } from "../contexts/CardContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import Card from "./Card";
 
@@ -11,25 +14,39 @@ export default function Main({
   onAddPlace,
   onCardClick,
 }) {
-  const [userName, setUserName] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userDescription, setUserDescription] =
-    useState("");
-  const [userAvatar, setUserAvatar] =
-    useState("");
+  const currentUser = useContext(
+    CurrentUserContext
+  );
+
   const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((profileData) => {
-        setUserName(profileData.name);
-        setUserId(profileData._id);
-        setUserDescription(profileData.about);
-        setUserAvatar(profileData.avatar);
-      })
-      .catch((err) => console.log(err));
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(
+      (i) => i._id === currentUser._id
+    );
 
+    api
+      .setCardLikeStatus(card._id, isLiked)
+      .then((newCard) =>
+        setCards(
+          cards.map((c) =>
+            c._id === card._id ? newCard : c
+          )
+        )
+      );
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() =>
+        setCards(
+          cards.filter((c) => c._id !== card._id)
+        )
+      );
+  }
+
+  useEffect(() => {
     api.getCards().then((cardsData) => {
       setCards([...cardsData]);
     });
@@ -46,7 +63,7 @@ export default function Main({
               onClick={onEditAvatar}></button>
             <img
               className="profile__avatar"
-              src={userAvatar}
+              src={currentUser?.avatar}
               alt="аватарка"
             />
           </div>
@@ -54,7 +71,7 @@ export default function Main({
           <div>
             <div className="profile__name-flex-box">
               <h1 className="profile__name">
-                {userName}
+                {currentUser?.name}
               </h1>
               <button
                 className="profile__edit-btn"
@@ -63,7 +80,7 @@ export default function Main({
                 onClick={onEditProfile}></button>
             </div>
             <h2 className="profile__about">
-              {userDescription}
+              {currentUser?.about}
             </h2>
           </div>
         </div>
@@ -77,12 +94,17 @@ export default function Main({
 
       <section className="elements">
         {cards.map((card) => (
-          <Card
-            card={card}
-            userId={userId}
-            onCardClick={onCardClick}
-            key={card._id}
-          />
+          <CardContext.Provider
+            value={card}
+            key={card._id}>
+            <Card
+              // card={card}
+              // userId={currentUser._id}
+              onCardClick={onCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+          </CardContext.Provider>
         ))}
       </section>
     </main>

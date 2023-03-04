@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CardContext } from "../contexts/CardContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Card({
-  card,
-  userId,
+  // card,
+  // userId,
   onCardClick,
+  onCardLike,
+  onCardDelete,
 }) {
-  function handleCardClick() {
-    onCardClick(card);
+  const card = useContext(CardContext);
+  const currentUser = useContext(
+    CurrentUserContext
+  );
+
+  const isOwn =
+    card.owner._id === currentUser._id;
+  const isLiked = card.likes.some(
+    (i) => i._id === currentUser._id
+  );
+
+  const likeBtnClassName = `elements__like ${
+    isLiked ? "elements__like_active" : ""
+  }`;
+
+  function handleCardClick(e) {
+    if (
+      !e.target.classList.contains(
+        "elements__like" || "elements__trash"
+      )
+    ) {
+      onCardClick(card);
+    }
+  }
+
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
+  function handleCardDelete() {
+    onCardDelete(card);
   }
 
   return (
@@ -18,11 +51,12 @@ export default function Card({
         src={card.link}
         alt={card.name}
       />
-      {card.owner._id === userId && (
+      {isOwn && (
         <button
           className="elements__trash"
           type="button"
-          aria-label="удалить"></button>
+          aria-label="удалить"
+          onClick={handleCardDelete}></button>
       )}
 
       <div className="elements__title-flex-box">
@@ -31,9 +65,10 @@ export default function Card({
         </h3>
         <div>
           <button
-            className="elements__like"
+            className={likeBtnClassName}
             type="button"
-            aria-label="нравится"></button>
+            aria-label="нравится"
+            onClick={handleLikeClick}></button>
           <p className="elements__like-count">
             {card.likes.length}
           </p>

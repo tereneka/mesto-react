@@ -19,6 +19,7 @@ export default function PopupWithForm({
   }
 
   function closePopupByEsc(e) {
+    console.log("esc");
     if (e.key === "Escape") {
       onClose();
     }

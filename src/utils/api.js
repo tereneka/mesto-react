@@ -71,19 +71,27 @@ class Api {
     ).then((res) => this._getResult(res));
   }
 
-  addCardLike(id) {
+  setCardLikeStatus(id, isLiked) {
+    const method = isLiked ? "DELETE" : "PUT";
     return this._getApi(
       `cards/${id}/likes`,
-      "PUT"
+      method
     ).then((res) => this._getResult(res));
   }
 
-  deleteCardLike(id) {
-    return this._getApi(
-      `cards/${id}/likes`,
-      "DELETE"
-    ).then((res) => this._getResult(res));
-  }
+  // addCardLike(id) {
+  //   return this._getApi(
+  //     `cards/${id}/likes`,
+  //     "PUT"
+  //   ).then((res) => this._getResult(res));
+  // }
+
+  // deleteCardLike(id) {
+  //   return this._getApi(
+  //     `cards/${id}/likes`,
+  //     "DELETE"
+  //   ).then((res) => this._getResult(res));
+  // }
 }
 
 export const api = new Api(dbConfig);
