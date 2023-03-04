@@ -9,48 +9,17 @@ import { api } from "../utils/api";
 import Card from "./Card";
 
 export default function Main({
+  cards,
   onEditAvatar,
   onEditProfile,
   onAddPlace,
   onCardClick,
+  onCardLike,
+  onCardDelete,
 }) {
   const currentUser = useContext(
     CurrentUserContext
   );
-
-  const [cards, setCards] = useState([]);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(
-      (i) => i._id === currentUser._id
-    );
-
-    api
-      .setCardLikeStatus(card._id, isLiked)
-      .then((newCard) =>
-        setCards(
-          cards.map((c) =>
-            c._id === card._id ? newCard : c
-          )
-        )
-      );
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id)
-      .then(() =>
-        setCards(
-          cards.filter((c) => c._id !== card._id)
-        )
-      );
-  }
-
-  useEffect(() => {
-    api.getCards().then((cardsData) => {
-      setCards([...cardsData]);
-    });
-  }, []);
 
   return (
     <main>
@@ -99,8 +68,8 @@ export default function Main({
             key={card._id}>
             <Card
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           </CardContext.Provider>
         ))}

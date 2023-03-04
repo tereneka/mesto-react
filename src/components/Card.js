@@ -25,7 +25,7 @@ export default function Card({
   function handleCardClick(e) {
     if (
       !e.target.classList.contains(
-        "elements__like" || "elements__trash"
+        "elements__like" && "elements__trash"
       )
     ) {
       onCardClick(card);
