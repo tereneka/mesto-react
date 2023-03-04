@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
+import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -51,6 +52,12 @@ function App() {
       closeAllPopups();
     });
   }
+  function handleUpdateAvatar(newAvatar) {
+    api.setAvatar(newAvatar).then((data) => {
+      setCurrentUser(data);
+      closeAllPopups();
+    });
+  }
 
   useEffect(() => {
     api
@@ -71,21 +78,11 @@ function App() {
         />
         <Footer />
 
-        <PopupWithForm
-          title="Обновить аватар"
-          name="edit-avatar"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}>
-          <input
-            className="popup__input popup__input_data_avatar"
-            id="avatar-input"
-            type="url"
-            name="avatar"
-            required
-            placeholder="Ссылка на картинку"
-          />
-          <span className="popup__input-error avatar-input-error"></span>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}

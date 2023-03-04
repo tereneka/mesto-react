@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function PopupWithForm({
   title,
@@ -8,6 +8,8 @@ export default function PopupWithForm({
   onClose,
   onSubmit,
 }) {
+  const formRef = useRef();
+
   function closePopup(e) {
     if (
       e.target === e.currentTarget ||
@@ -35,6 +37,8 @@ export default function PopupWithForm({
           "keydown",
           closePopupByEsc
         );
+
+    isOpen && formRef.current.reset();
   }, [isOpen]);
 
   return (
@@ -54,6 +58,7 @@ export default function PopupWithForm({
           <form
             className="popup__form"
             onSubmit={onSubmit}
+            ref={formRef}
             method="post"
             name={name}
             noValidate>

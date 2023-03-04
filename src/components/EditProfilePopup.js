@@ -32,9 +32,11 @@ export default function EditProfilePopup({
   }
 
   useEffect(() => {
-    setName(currentUser.name);
-    setAbout(currentUser.about);
-  }, [currentUser]);
+    if (isOpen) {
+      setName(currentUser.name);
+      setAbout(currentUser.about);
+    }
+  }, [currentUser, isOpen]);
 
   return (
     <PopupWithForm
