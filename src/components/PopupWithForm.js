@@ -6,6 +6,7 @@ export default function PopupWithForm({
   children,
   isOpen,
   onClose,
+  onSubmit,
 }) {
   function closePopup(e) {
     if (
@@ -19,7 +20,6 @@ export default function PopupWithForm({
   }
 
   function closePopupByEsc(e) {
-    console.log("esc");
     if (e.key === "Escape") {
       onClose();
     }
@@ -53,6 +53,7 @@ export default function PopupWithForm({
         <div className="popup__content-box">
           <form
             className="popup__form"
+            onSubmit={onSubmit}
             method="post"
             name={name}
             noValidate>

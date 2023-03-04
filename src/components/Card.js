@@ -3,8 +3,6 @@ import { CardContext } from "../contexts/CardContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Card({
-  // card,
-  // userId,
   onCardClick,
   onCardLike,
   onCardDelete,

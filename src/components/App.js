@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
+import EditProfilePopup from "./EditProfilePopup";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -44,6 +45,12 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
+  function handleUpdateUser(newUserInfo) {
+    api.setUserInfo(newUserInfo).then((data) => {
+      setCurrentUser(data);
+      closeAllPopups();
+    });
+  }
 
   useEffect(() => {
     api
@@ -80,35 +87,11 @@ function App() {
           <span className="popup__input-error avatar-input-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          title="Редактировать профиль"
-          name="edit-profile"
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}>
-          <input
-            className="popup__input popup__input_data_user-name"
-            id="user-name-input"
-            type="text"
-            name="userName"
-            autoFocus
-            required
-            minLength="2"
-            maxLength="40"
-            placeholder="Имя"
-          />
-          <span className="popup__input-error user-name-input-error"></span>
-          <input
-            className="popup__input popup__input_data_user-about"
-            id="user-about-input"
-            type="text"
-            name="userAbout"
-            required
-            minLength="2"
-            maxLength="200"
-            placeholder="О себе"
-          />
-          <span className="popup__input-error user-about-input-error"></span>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
 
         <PopupWithForm
           title="Новое место"

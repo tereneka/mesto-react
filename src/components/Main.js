@@ -98,8 +98,6 @@ export default function Main({
             value={card}
             key={card._id}>
             <Card
-              // card={card}
-              // userId={currentUser._id}
               onCardClick={onCardClick}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
