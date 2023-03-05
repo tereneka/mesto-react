@@ -2,7 +2,6 @@
   font-size: 20px;
   color: var(--error);
   text-align: center;
-  margin: 0;
+  margin: 40vh 0 0;
   padding: 20px;
-  display: none;
 }

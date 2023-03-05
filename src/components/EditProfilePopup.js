@@ -8,6 +8,7 @@ import PopupWithForm from "./PopupWithForm";
 
 export default function EditProfilePopup({
   isOpen,
+  isLoading,
   onClose,
   onUpdateUser,
 }) {
@@ -43,6 +44,7 @@ export default function EditProfilePopup({
       title="Редактировать профиль"
       name="edit-profile"
       isOpen={isOpen}
+      isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}>
       <input

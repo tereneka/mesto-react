@@ -5,11 +5,10 @@ export default function PopupWithForm({
   name,
   children,
   isOpen,
+  isLoading,
   onClose,
   onSubmit,
 }) {
-  const formRef = useRef();
-
   function closePopup(e) {
     if (
       e.target === e.currentTarget ||
@@ -37,8 +36,6 @@ export default function PopupWithForm({
           "keydown",
           closePopupByEsc
         );
-
-    isOpen && formRef.current.reset();
   }, [isOpen]);
 
   return (
@@ -58,7 +55,6 @@ export default function PopupWithForm({
           <form
             className="popup__form"
             onSubmit={onSubmit}
-            ref={formRef}
             method="post"
             name={name}
             noValidate>
@@ -66,7 +62,9 @@ export default function PopupWithForm({
             <button
               className="popup__submit-btn"
               type="submit">
-              Сохранить
+              {isLoading
+                ? "Сохранение..."
+                : "Сохранить"}
             </button>
           </form>
         </div>

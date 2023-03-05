@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 
 export default function AddPlacePopup({
   isOpen,
+  isLoading,
   onClose,
   onAddPlace,
 }) {
@@ -37,6 +38,7 @@ export default function AddPlacePopup({
       title="Новое место"
       name="add-card"
       isOpen={isOpen}
+      isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}>
       <input

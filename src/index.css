@@ -8,14 +8,9 @@
 
 @import url(./blocks/header/header.css);
 
-@import url(./blocks/content/_invisible/content_invisible.css);
-
 @import url(./blocks/spinner/spinner.css);
-@import url(./blocks/spinner/_visible/spinner_visible.css);
 
 @import url(./blocks/error/error.css);
-@import url(./blocks/error/_visible/error_visible.css);
-@import url(./blocks/error/_for/error_for_content.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar-box/profile__avatar-box.css);
