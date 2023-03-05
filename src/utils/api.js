@@ -7,16 +7,11 @@ class Api {
   }
 
   _getApi(endpoint, method, body) {
-    return body
-      ? fetch(`${this._baseUrl}/${endpoint}`, {
-          method: method,
-          headers: this._headers,
-          body: body,
-        })
-      : fetch(`${this._baseUrl}/${endpoint}`, {
-          method: method,
-          headers: this._headers,
-        });
+    return fetch(`${this._baseUrl}/${endpoint}`, {
+      method: method,
+      headers: this._headers,
+      body: body,
+    }).then((res) => this._getResult(res));
   }
 
   _getResult(res) {
@@ -26,9 +21,7 @@ class Api {
   }
 
   getUserInfo() {
-    return this._getApi("users/me", "GET").then(
-      (res) => this._getResult(res)
-    );
+    return this._getApi("users/me", "GET");
   }
 
   setAvatar({ avatar }) {
@@ -37,7 +30,7 @@ class Api {
       "users/me/avatar",
       "PATCH",
       body
-    ).then((res) => this._getResult(res));
+    );
   }
 
   setUserInfo({ name, about }) {
@@ -46,29 +39,20 @@ class Api {
       "users/me",
       "PATCH",
       body
-    ).then((res) => this._getResult(res));
+    );
   }
 
   getCards() {
-    return this._getApi("cards", "GET").then(
-      (res) => this._getResult(res)
-    );
+    return this._getApi("cards", "GET");
   }
 
   postCard({ name, link }) {
     const body = JSON.stringify({ name, link });
-    return this._getApi(
-      "cards",
-      "POST",
-      body
-    ).then((res) => this._getResult(res));
+    return this._getApi("cards", "POST", body);
   }
 
   deleteCard(id) {
-    return this._getApi(
-      `cards/${id}`,
-      "DELETE"
-    ).then((res) => this._getResult(res));
+    return this._getApi(`cards/${id}`, "DELETE");
   }
 
   setCardLikeStatus(id, isLiked) {
@@ -76,7 +60,7 @@ class Api {
     return this._getApi(
       `cards/${id}/likes`,
       method
-    ).then((res) => this._getResult(res));
+    );
   }
 }
 

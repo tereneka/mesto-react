@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
-import { CardContext } from "../contexts/CardContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Card({
+  card,
   onCardClick,
   onCardLike,
   onCardDelete,
 }) {
-  const card = useContext(CardContext);
   const currentUser = useContext(
     CurrentUserContext
   );
@@ -25,7 +24,10 @@ export default function Card({
   function handleCardClick(e) {
     if (
       !e.target.classList.contains(
-        "elements__like" && "elements__trash"
+        "elements__like"
+      ) &&
+      !e.target.classList.contains(
+        "elements__trash"
       )
     ) {
       onCardClick(card);

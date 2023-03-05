@@ -1,4 +1,9 @@
-import { useEffect, useState } from "react";
+import {
+  createRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import AddPlacePopup from "./AddPlacePopup";
@@ -9,7 +14,6 @@ import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
 import Main from "./Main";
-import PopupWithForm from "./PopupWithForm";
 import Spinner from "./Spinner";
 
 function App() {
@@ -52,10 +56,10 @@ function App() {
       .setAvatar(newAvatar)
       .then((data) => {
         setCurrentUser(data);
-        setIsFormDataLoading(false);
         closeAllPopups();
       })
-      .catch((err) => setIsError(err));
+      .catch((err) => setIsError(err))
+      .finally(() => setIsFormDataLoading(false));
   }
 
   function handleEditProfileClick() {
@@ -67,10 +71,10 @@ function App() {
       .setUserInfo(newUserInfo)
       .then((data) => {
         setCurrentUser(data);
-        setIsFormDataLoading(false);
         closeAllPopups();
       })
-      .catch((err) => setIsError(err));
+      .catch((err) => setIsError(err))
+      .finally(() => setIsFormDataLoading(false));
   }
 
   function handleAddPlaceClick() {
@@ -82,10 +86,10 @@ function App() {
       .postCard(card)
       .then((data) => {
         setCards([data, ...cards]);
-        setIsFormDataLoading(false);
         closeAllPopups();
       })
-      .catch((err) => setIsError(err));
+      .catch((err) => setIsError(err))
+      .finally(() => setIsFormDataLoading(false));
   }
 
   function handleCardClick(card) {
@@ -99,8 +103,8 @@ function App() {
     api
       .setCardLikeStatus(card._id, isLiked)
       .then((newCard) =>
-        setCards(
-          cards.map((c) =>
+        setCards((state) =>
+          state.map((c) =>
             c._id === card._id ? newCard : c
           )
         )
@@ -111,8 +115,10 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() =>
-        setCards(
-          cards.filter((c) => c._id !== card._id)
+        setCards((state) =>
+          state.filter(
+            (item) => item._id !== card._id
+          )
         )
       )
       .catch((err) => setIsError(err));
@@ -167,33 +173,44 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
+
             <Footer />
 
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              isLoading={isFormDataLoading}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-            />
+            {isEditAvatarPopupOpen && (
+              <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                isLoading={isFormDataLoading}
+                onClose={closeAllPopups}
+                onUpdateAvatar={
+                  handleUpdateAvatar
+                }
+              />
+            )}
 
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              isLoading={isFormDataLoading}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-            />
+            {isEditProfilePopupOpen && (
+              <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                isLoading={isFormDataLoading}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+              />
+            )}
 
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              isLoading={isFormDataLoading}
-              onClose={closeAllPopups}
-              onAddPlace={handleAddPlace}
-            />
+            {isAddPlacePopupOpen && (
+              <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                isLoading={isFormDataLoading}
+                onClose={closeAllPopups}
+                onAddPlace={handleAddPlace}
+              />
+            )}
 
-            <ImagePopup
-              card={selectedCard}
-              onClose={closeAllPopups}
-            />
+            {selectedCard && (
+              <ImagePopup
+                card={selectedCard}
+                onClose={closeAllPopups}
+              />
+            )}
           </CurrentUserContext.Provider>
         </div>
       )}

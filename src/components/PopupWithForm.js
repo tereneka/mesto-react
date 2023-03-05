@@ -4,11 +4,12 @@ export default function PopupWithForm({
   title,
   name,
   children,
-  isOpen,
   isLoading,
   onClose,
   onSubmit,
 }) {
+  const popupRef = useRef();
+
   function closePopup(e) {
     if (
       e.target === e.currentTarget ||
@@ -16,33 +17,44 @@ export default function PopupWithForm({
         "popup__close-btn"
       )
     ) {
-      onClose();
+      popupRef.current.classList.add(
+        "popup_closed"
+      );
+      setTimeout(() => {
+        onClose();
+      }, 300);
     }
   }
 
   function closePopupByEsc(e) {
     if (e.key === "Escape") {
-      onClose();
+      popupRef.current.classList.add(
+        "popup_closed"
+      );
+      setTimeout(() => {
+        onClose();
+      }, 300);
     }
   }
 
   useEffect(() => {
-    isOpen
-      ? document.addEventListener(
-          "keydown",
-          closePopupByEsc
-        )
-      : document.removeEventListener(
-          "keydown",
-          closePopupByEsc
-        );
-  }, [isOpen]);
+    document.addEventListener(
+      "keydown",
+      closePopupByEsc
+    );
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        closePopupByEsc
+      );
+    };
+  }, []);
 
   return (
     <div
-      className={`popup popup_name_${name} ${
-        isOpen ? "popup_opened" : ""
-      }`}
+      className={`popup popup_name_${name}`}
+      ref={popupRef}
       onClick={closePopup}>
       <div className="popup__container popup__container_for_form">
         <button
@@ -50,14 +62,12 @@ export default function PopupWithForm({
           type="button"
           aria-label="закрытие окна"></button>
         <h3 className="popup__title">{title}</h3>
-        <p className="error"></p>
         <div className="popup__content-box">
           <form
             className="popup__form"
             onSubmit={onSubmit}
             method="post"
-            name={name}
-            noValidate>
+            name={name}>
             {children}
             <button
               className="popup__submit-btn"

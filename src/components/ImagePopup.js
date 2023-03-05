@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function ImagePopup({
   card,
   onClose,
 }) {
+  const popupRef = useRef();
+
   function closePopup(e) {
     if (
       e.target === e.currentTarget ||
@@ -11,33 +13,44 @@ export default function ImagePopup({
         "popup__close-btn"
       )
     ) {
-      onClose();
+      popupRef.current.classList.add(
+        "popup_closed"
+      );
+      setTimeout(() => {
+        onClose();
+      }, 300);
     }
   }
 
   function closePopupByEsc(e) {
     if (e.key === "Escape") {
-      onClose();
+      popupRef.current.classList.add(
+        "popup_closed"
+      );
+      setTimeout(() => {
+        onClose();
+      }, 300);
     }
   }
 
   useEffect(() => {
-    card
-      ? document.addEventListener(
-          "keydown",
-          closePopupByEsc
-        )
-      : document.removeEventListener(
-          "keydown",
-          closePopupByEsc
-        );
-  }, [card]);
+    document.addEventListener(
+      "keydown",
+      closePopupByEsc
+    );
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        closePopupByEsc
+      );
+    };
+  }, []);
 
   return (
     <div
-      className={`popup popup_name_fullscreen-photo ${
-        card ? "popup_opened" : ""
-      }`}
+      className="popup popup_name_fullscreen-photo"
+      ref={popupRef}
       onClick={closePopup}>
       <div className="popup__container">
         <button

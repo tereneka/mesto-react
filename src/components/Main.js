@@ -1,11 +1,5 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { CardContext } from "../contexts/CardContext";
+import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { api } from "../utils/api";
 import Card from "./Card";
 
 export default function Main({
@@ -63,15 +57,13 @@ export default function Main({
 
       <section className="elements">
         {cards.map((card) => (
-          <CardContext.Provider
-            value={card}
-            key={card._id}>
-            <Card
-              onCardClick={onCardClick}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
-            />
-          </CardContext.Provider>
+          <Card
+            card={card}
+            key={card._id}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+          />
         ))}
       </section>
     </main>

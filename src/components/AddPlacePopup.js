@@ -1,7 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect } from "react";
+import { useForm } from "../hooks/useForm";
 import PopupWithForm from "./PopupWithForm";
 
 export default function AddPlacePopup({
@@ -10,45 +8,36 @@ export default function AddPlacePopup({
   onClose,
   onAddPlace,
 }) {
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleLinkChange(e) {
-    setLink(e.target.value);
-  }
+  // мы ещё не проходили тему кастомных хуков
+  const { values, handleChange, setValues } =
+    useForm({ name: "", link: "" });
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({ name, link });
+    onAddPlace(values);
   }
 
   useEffect(() => {
     if (isOpen) {
-      setName("");
-      setLink("");
+      setValues({ name: "", link: "" });
     }
-  }, [isOpen]);
+  }, []);
 
   return (
     <PopupWithForm
       title="Новое место"
       name="add-card"
-      isOpen={isOpen}
       isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}>
       <input
         className="popup__input popup__input_data_card-name"
-        value={name}
-        onChange={handleNameChange}
+        value={values.name}
+        onChange={handleChange}
         id="card-name-input"
         placeholder="Название"
         type="text"
-        name="cardName"
+        name="name"
         autoFocus
         required
         minLength="2"
@@ -57,12 +46,12 @@ export default function AddPlacePopup({
       <span className="popup__input-error card-name-input-error"></span>
       <input
         className="popup__input popup__input_data_card-link"
-        value={link}
-        onChange={handleLinkChange}
+        value={values.link}
+        onChange={handleChange}
         id="card-link-input"
         placeholder="Ссылка на картинку"
         type="url"
-        name="cardLink"
+        name="link"
         required
       />
       <span className="popup__input-error card-link-input-error"></span>

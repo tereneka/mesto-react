@@ -26,7 +26,6 @@ export default function EditAvatarPopup({
     <PopupWithForm
       title="Обновить аватар"
       name="edit-avatar"
-      isOpen={isOpen}
       isLoading={isLoading}
       onClose={onClose}
       onSubmit={handleSubmit}>
