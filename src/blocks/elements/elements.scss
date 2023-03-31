@@ -1,10 +1,11 @@
 $item-size: 282px;
 $border-radius: 10px;
+$gap: 20px;
 
 .elements {
   @include centered-repeated-grid(
     $el-width: $item-size,
-    $gap: 20px 17px
+    $gap: $gap
   );
   width: 100%;
   margin: 50px auto 0;
@@ -22,14 +23,93 @@ $border-radius: 10px;
     display: block;
     width: 100%;
     height: $item-size;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-    object-fit: cover;
-    object-position: center top;
     box-sizing: border-box;
     cursor: pointer;
     background-color: $dark-color;
     color: $light-color;
+    border: {
+      top-left-radius: $border-radius;
+      top-right-radius: $border-radius;
+    }
+    object: {
+      fit: cover;
+      position: center top;
+    }
+  }
+
+  &__title-flex-box {
+    @include flex-space-between;
+    gap: $gap;
+    padding: $gap;
+    min-height: 19px;
+  }
+
+  &__title {
+    font: {
+      style: normal;
+      weight: 900;
+      size: 24px;
+    }
+    line-height: 29px;
+    color: $dark-color;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__like {
+    @include background-image(
+      $img: "../../images/like.svg",
+      $size: contain
+    );
+    min-width: 22px;
+    height: 19px;
+    padding: 0;
+    line-height: 0;
+    border: none;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      opacity: $hover-opacity;
+    }
+
+    &_active {
+      background-image: url(../../images/like-active.svg);
+    }
+  }
+
+  &__like-count {
+    font: {
+      style: normal;
+      weight: 400;
+      size: 13px;
+    }
+    line-height: 16px;
+    text-align: center;
+    margin: 3px auto 0;
+  }
+
+  &__trash {
+    @include background-image(
+      $img: "../../images/trash.svg",
+      $size: contain
+    );
+    width: 18px;
+    height: 19px;
+    border: none;
+    padding: 0;
+    line-height: 0;
+    position: absolute;
+    top: $gap;
+    right: $gap;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      opacity: $hover-opacity;
+    }
   }
 
   @media screen and (max-width: $laptop-size) {

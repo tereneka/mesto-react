@@ -4,7 +4,7 @@
   transition: $transition;
 
   &:hover {
-    opacity: $link-hover-opacity;
+    opacity: $hover-opacity;
   }
 
   @media screen and (max-width: $tablet-size) {

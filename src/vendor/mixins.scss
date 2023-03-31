@@ -7,3 +7,19 @@
   justify-content: center;
   gap: $gap;
 }
+
+@mixin flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin background-image($img, $size: cover) {
+  background: {
+    image: url($img);
+    size: $size;
+    position: center;
+    repeat: no-repeat;
+    color: transparent;
+  }
+}
