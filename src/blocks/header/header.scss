@@ -1,0 +1,14 @@
+.header {
+  width: 100%;
+  min-height: 74px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  box-sizing: border-box;
+
+  @media screen and (max-width: $laptop-size) {
+    padding-left: 27px;
+  }
+
+  @media screen and (max-width: $tablet-size) {
+    min-height: 56px;
+  }
+}

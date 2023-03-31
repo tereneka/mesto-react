@@ -1,9 +1,4 @@
-import {
-  createRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import AddPlacePopup from "./AddPlacePopup";

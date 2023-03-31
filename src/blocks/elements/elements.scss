@@ -1,0 +1,43 @@
+$item-size: 282px;
+$border-radius: 10px;
+
+.elements {
+  @include centered-repeated-grid(
+    $el-width: $item-size,
+    $gap: 20px 17px
+  );
+  width: 100%;
+  margin: 50px auto 0;
+
+  &__item {
+    width: 100%;
+    background-color: $light-color;
+    border-radius: $border-radius;
+    margin: auto;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  &__photo {
+    display: block;
+    width: 100%;
+    height: $item-size;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    object-fit: cover;
+    object-position: center top;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: $dark-color;
+    color: $light-color;
+  }
+
+  @media screen and (max-width: $laptop-size) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: $mobile-size) {
+    width: calc(100% - 38px);
+    margin-top: 36px;
+  }
+}
