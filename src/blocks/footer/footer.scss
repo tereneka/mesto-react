@@ -1,0 +1,29 @@
+.footer {
+  width: 100%;
+  margin: 66px auto 0;
+
+  &__copyright {
+    font: {
+      style: normal;
+      weight: 400;
+      size: 18px;
+    }
+    line-height: 22px;
+    color: $medium-color;
+    margin: 0;
+  }
+
+  @media screen and (max-width: $laptop-size) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: $mobile-size) {
+    width: calc(100% - #{$side-padding * 2});
+    margin-top: 48px;
+
+    &__copyright {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+}

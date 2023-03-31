@@ -1,6 +1,8 @@
 $font-family: "Inter", sans-serif;
 
 $dark-color: rgb(0, 0, 0);
+$dark-transparent-color: rgba(0, 0, 0, 0.5);
+$shadow-color: rgba(0, 0, 0, 0.2);
 $light-color: rgb(255, 255, 255);
 $medium-color: rgba(84, 84, 84);
 $error: rgb(255, 0, 0);
@@ -8,6 +10,11 @@ $error: rgb(255, 0, 0);
 $laptop-size: 1130px;
 $tablet-size: 900px;
 $mobile-size: 600px;
+$mini-mobile-size: 468px;
 
-$transition: all 0.3s;
+$side-padding: 19px;
+$border-radius-l: 10px;
+$border-radius-s: 2px;
+
+$transition-duration: 0.3s;
 $hover-opacity: 0.6;

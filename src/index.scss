@@ -1,10 +1,15 @@
 @import "./vendor/normalize.css";
 @import "./vendor/fonts/inter.css";
+
 @import "./vendor/variables.scss";
 @import "./vendor/mixins.scss";
+
 @import "./blocks/logo/logo.scss";
 @import "./blocks/header/header.scss";
 @import "./blocks/elements/elements.scss";
+@import "./blocks/error/error.scss";
+@import "./blocks/popup/popup.scss";
+@import "./blocks/footer/footer.scss";
 
 .root {
   font-family: $font-family;

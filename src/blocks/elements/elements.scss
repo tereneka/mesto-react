@@ -1,5 +1,4 @@
 $item-size: 282px;
-$border-radius: 10px;
 $gap: 20px;
 
 .elements {
@@ -13,7 +12,7 @@ $gap: 20px;
   &__item {
     width: 100%;
     background-color: $light-color;
-    border-radius: $border-radius;
+    border-radius: $border-radius-l;
     margin: auto;
     box-sizing: border-box;
     position: relative;
@@ -28,8 +27,8 @@ $gap: 20px;
     background-color: $dark-color;
     color: $light-color;
     border: {
-      top-left-radius: $border-radius;
-      top-right-radius: $border-radius;
+      top-left-radius: $border-radius-l;
+      top-right-radius: $border-radius-l;
     }
     object: {
       fit: cover;
@@ -45,14 +44,7 @@ $gap: 20px;
   }
 
   &__title {
-    font: {
-      style: normal;
-      weight: 900;
-      size: 24px;
-    }
-    line-height: 29px;
-    color: $dark-color;
-    margin: 0;
+    @include title;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -60,8 +52,7 @@ $gap: 20px;
 
   &__like {
     @include background-image(
-      $img: "../../images/like.svg",
-      $size: contain
+      $img: "../../images/like.svg"
     );
     min-width: 22px;
     height: 19px;
@@ -69,7 +60,7 @@ $gap: 20px;
     line-height: 0;
     border: none;
     cursor: pointer;
-    transition: $transition;
+    transition: all $transition-duration;
 
     &:hover {
       opacity: $hover-opacity;
@@ -93,8 +84,7 @@ $gap: 20px;
 
   &__trash {
     @include background-image(
-      $img: "../../images/trash.svg",
-      $size: contain
+      $img: "../../images/trash.svg"
     );
     width: 18px;
     height: 19px;
@@ -105,7 +95,7 @@ $gap: 20px;
     top: $gap;
     right: $gap;
     cursor: pointer;
-    transition: $transition;
+    transition: all $transition-duration;
 
     &:hover {
       opacity: $hover-opacity;
@@ -117,7 +107,7 @@ $gap: 20px;
   }
 
   @media screen and (max-width: $mobile-size) {
-    width: calc(100% - 38px);
+    width: calc(100% - #{$side-padding * 2});
     margin-top: 36px;
   }
 }
