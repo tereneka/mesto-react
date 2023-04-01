@@ -1,8 +1,8 @@
 .root {
-  font-family: "Inter", sans-serif;
+  font-family: $font-family;
   max-width: 880px;
   width: 78%;
-  background-color: var(--dark-color);
+  background-color: $dark-color;
   box-sizing: border-box;
   margin: auto;
   padding-top: 45px;
@@ -10,16 +10,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
 
-@media screen and (max-width: 1130px) {
-  .root {
+  @media screen and (max-width: $laptop-size) {
     width: 100%;
   }
-}
 
-@media screen and (max-width: 600px) {
-  .root {
+  @media screen and (max-width: $mobile-size) {
+    width: 100%;
     padding-top: 28px;
     padding-bottom: 36px;
   }

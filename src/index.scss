@@ -4,33 +4,12 @@
 @import "./vendor/variables.scss";
 @import "./vendor/mixins.scss";
 
-@import "./blocks/logo/logo.scss";
-@import "./blocks/header/header.scss";
-@import "./blocks/elements/elements.scss";
-@import "./blocks/error/error.scss";
-@import "./blocks/popup/popup.scss";
-@import "./blocks/footer/footer.scss";
-
-.root {
-  font-family: $font-family;
-  max-width: 880px;
-  width: 78%;
-  background-color: $dark-color;
-  box-sizing: border-box;
-  margin: auto;
-  padding-top: 45px;
-  padding-bottom: 60px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-
-  @media screen and (max-width: $laptop-size) {
-    width: 100%;
-  }
-
-  @media screen and (max-width: $mobile-size) {
-    width: 100%;
-    padding-top: 28px;
-    padding-bottom: 36px;
-  }
-}
+@import "./blocks/root.scss";
+@import "./blocks/spinner.scss";
+@import "./blocks/logo.scss";
+@import "./blocks/header.scss";
+@import "./blocks/elements.scss";
+@import "./blocks/error.scss";
+@import "./blocks/profile.scss";
+@import "./blocks/popup.scss";
+@import "./blocks/footer.scss";

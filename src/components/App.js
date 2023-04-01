@@ -147,7 +147,6 @@ function App() {
       {isError && (
         <ErrorMessage message={isError} />
       )}
-
       {isContentLoading && !isError && (
         <Spinner />
       )}

@@ -44,7 +44,7 @@ $gap: 20px;
   }
 
   &__title {
-    @include title;
+    @include font-l;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -52,7 +52,7 @@ $gap: 20px;
 
   &__like {
     @include background-image(
-      $img: "../../images/like.svg"
+      $img: "../images/like.svg"
     );
     min-width: 22px;
     height: 19px;
@@ -67,7 +67,7 @@ $gap: 20px;
     }
 
     &_active {
-      background-image: url(../../images/like-active.svg);
+      background-image: url(../images/like-active.svg);
     }
   }
 
@@ -84,7 +84,7 @@ $gap: 20px;
 
   &__trash {
     @include background-image(
-      $img: "../../images/trash.svg"
+      $img: "../images/trash.svg"
     );
     width: 18px;
     height: 19px;
